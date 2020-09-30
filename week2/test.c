@@ -15,9 +15,24 @@ int foo(char *str, char* buff) {
 }
 int bar(char* buff) {
 	char temp[2]="\x23\x11";
-	if (buff[0]^temp[0]==0x60) {
-		if (buff[1]+buff[1]=0x90) {
-			if (buff[2]*0x47==0x1793) {
+	if(buff[0]^temp[0]==0x60) {
+		if(buff[1]+buff[1]==0x90) {
+			if(buff[2]*0x47==0x1793) {
+				if(buff[3]+buff[1]==0xa2) {
+					if(buff[4]-buff[3]==0x2a) {
+						if(buff[5]^temp[1]==0x54) {
+							if(buff[6]<<2==0xc0) {
+								if (buff[7]>0x46) {
+									if(buff[7]==0x47) {
+										if(buff[8]==0x21) {
+											return 0;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
