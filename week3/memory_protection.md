@@ -8,6 +8,15 @@
     * 다만 canary의 값이 저장된 stack address, 혹은 스택의 값을 읽어올 수 있다면 canary의 값을 확인할 수 있다.
 
 
+### off canary
+```bash
+gcc -fno-stack-protector 
+```
+
+### off NX
+```bash
+gcc -z execstack
+```
 
 2. ASLR
 * stack start address가 실행시마다 바뀐다.
