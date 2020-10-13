@@ -35,3 +35,9 @@ gdb 명령어
 
 관련 api
 `mprotect`
+
+
+
+```
+(python2 -c 'print("\xB8\x2A\x00\x00\x00\xC3")';cat) | ./sample-protection
+```
