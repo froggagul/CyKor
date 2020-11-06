@@ -1,0 +1,7 @@
+0x08048bdf : call system
+
+0x804af08
+
+0x804b6c0 name
+
+0x8048d5d ("/usr/bin/clear")

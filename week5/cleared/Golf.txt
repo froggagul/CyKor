@@ -1,0 +1,25 @@
+bss = 0x0804a02c
+name = 0x804A030
+
+0x
+0804a040
+
+/bin/sh
+2f 62 69 6e
+
+6e69622f
+
+2f 73 68 00
+
+0068732f
+
+
+0xf7e0f830
+
+
+
+just before puts 
+0x08048639
+
+puts plt
+0x80483a0

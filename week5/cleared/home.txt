@@ -1,0 +1,12 @@
+puts 0xf7e3bcd0
+system 0xf7e0f830
+
+puts 0xf7de8cd0
+system 0xf7dbc830
+
+bss = 0x08049864
+
+system = puts - 0x2c4a0
+read = puts - 0x83f30
+
+pppr = 8048589
