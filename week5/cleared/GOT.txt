@@ -1,0 +1,15 @@
+0x08048bdf : call system
+
+0x804af08
+
+0x804b080 badukpan
+
+0804b014 fgets_got
+
+0x8048540 fgets_plt
+
+0x804b6c0 name
+
+0x8048d5d ("/usr/bin/clear")
+
+gdb-peda$ p execve-system = 0x5d790
