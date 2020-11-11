@@ -1,0 +1,10 @@
+0x601080 <flag>:	"FLAG{_the_real_flag_will_be_here_}"
+
+0x601160 <usr+128>:	""
+
+0x6010e0 <usr>:	""
+
+y0000 00000 00000
+
+
+FLAG{should_have_named_it_babyfsb}

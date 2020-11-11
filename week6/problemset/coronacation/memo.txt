@@ -1,0 +1,12 @@
+win 0x01165
+
+
+gdb-peda$ p win
+$1 = {<text variable, no debug info>} 0x555555555165 <win>
+gdb-peda$ elfsmybol puts
+Undefined command: "elfsmybol".  Try "help".
+gdb-peda$ elfsymbol puts
+Detail symbol info
+puts@reloc = 0
+puts@plt = 0x555555555030
+puts@got = 0x555555557fb8
