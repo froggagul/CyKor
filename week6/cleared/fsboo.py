@@ -2,7 +2,7 @@ from pwn import *
 
 # context.log_level = 'debug'
 
-# p = process('./challenge', aslr=False)
+# p = process('./fsboo', aslr=False)
 p = remote("svc.pwnable.xyz", 30010)
 
 # gdb.attach(p, """ b* vuln+41""")

