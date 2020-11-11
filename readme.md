@@ -13,3 +13,12 @@
 # 5주차 - ROP/RTL
 1. ROP/RTL/GOT 관련 문제 풀기 + writeup 작성
     * Golf, GOT_OVERWRITE, home, rop1, rop2
+### 6week - FSB
+과제
+1. pwnable.xyz - Grownup
+2. pwnable.xyz - fspoo
+3. pwnable.xyz - strcat
+4. HackCTF - Basic_FSB
+5. DawgCTF 2020 - coronacation
+* coronacation은 로컬 익스, 나머지는 리모트 익스
+markdown으로 writeup 작성해서 제출
