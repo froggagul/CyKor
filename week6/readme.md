@@ -1,0 +1,6 @@
+## FSB
+1. 출력되는 순서 = 매개변수의 순서
+64bit
+rdi, rsi, rdx, rcs, r8, r9, rsp+0, rsp+8, ...
+32bit
+esp+0, esp+4, esp+8, esp+12 ...
