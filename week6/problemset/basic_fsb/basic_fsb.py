@@ -1,7 +1,7 @@
 from pwn import *
 
-# p = process('./basic_fsb')
-p = remote('ctf.j0n9hyun.xyz', 3002)
+p = process('./basic_fsb')
+# p = remote('ctf.j0n9hyun.xyz', 3002)
 p.recvuntil('input : ')
 
 flag_addr = 0x80485b4
